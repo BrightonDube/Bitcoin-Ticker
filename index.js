@@ -14,20 +14,24 @@ app.get("/", (req, res, next)=>{
 
 app.post("/",(req, res)=>{
     let crypto = req.body.crypto;
-    let fiat = req.body.fiat;
-    let url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD';
-    let url2 = `https://apiv2.bitcoinaverage.com/indices/global/ticker/${crypto}${fiat}`;
+    let fiat = req.body.fiat;    
+    let url = `https://apiv2.bitcoinaverage.com/indices/global/ticker/${crypto}${fiat}`;
+    
     (async () => {
         try {
-            const response = await got(url2);
-            console.log(response.body);
-            //=> '<!doctype html> ...'
+            const response = await got(url);                                 
+            let ask = JSON.parse(response.body).ask;
+            
+            res.send("The price is : "+ ask);
+            
         } catch (error) {
-            console.log(error.response.body);
-            //=> 'Internal server error ...'
+            console.log(error.response.body);           
+            
         }
     })();
-    console.log(url === url2);
+
+    // res.end();
+   
 });
 
 app.listen(5500, ()=>{

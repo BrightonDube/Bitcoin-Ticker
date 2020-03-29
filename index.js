@@ -20,9 +20,9 @@ app.post("/",(req, res)=>{
     (async () => {
         try {
             const response = await got(url);                                 
-            let ask = JSON.parse(response.body).ask;
+            let last = JSON.parse(response.body).last;
             
-            res.send("The price is : "+ ask);
+            res.send(`<h1>The price is:  ${last}</h1>`);
             
         } catch (error) {
             console.log(error.response.body);           

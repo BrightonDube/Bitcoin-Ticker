@@ -22,7 +22,7 @@ app.post("/",(req, res)=>{
             const response = await got(url);                                 
             let last = JSON.parse(response.body).last;
             
-            res.send(`<h1>The price is:  ${last}</h1>`);
+            res.send(`<h1>The price ${crypto} is: ${fiat}${last}</h1>`);
             
         } catch (error) {
             console.log(error.response.body);           
